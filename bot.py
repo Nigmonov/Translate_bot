@@ -25,7 +25,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🇺🇿 O‘zbek tili\n"
         "🇷🇺 Rus tili\n"
         "🇬🇧 Ingliz tili\n"
-        "🇹🇷 Turk tili\n\n"
+        "🇹🇷 Turk tili\n"
+        "🇩🇪 Nemis tili\n"
+        "🇰🇷 Koreys tili\n\n"
         "Iltimos, tarjima qilinadigan so‘z yoki gapni yuboring ✍️"
     )
 
@@ -38,13 +40,17 @@ async def translate_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         eng = GoogleTranslator(source='auto', target='en').translate(text)
         ru = GoogleTranslator(source='auto', target='ru').translate(text)
         tr = GoogleTranslator(source='auto', target='tr').translate(text)
-
+        de = GoogleTranslator(source='auto', target='de').translate(text)
+        ko = GoogleTranslator(source='auto', target='ko').translate(text)
         response = (
-            f"🌍 Asl matn: {text}\n\n"
+            f"🌍 Yuborilgan so'rov {text}\n\n"
             f"🇺🇿 O‘zbekcha: {uzb}\n"
             f"🇬🇧 Inglizcha: {eng}\n"
             f"🇷🇺 Ruscha: {ru}\n"
-            f"🇹🇷 Turkcha: {tr}"
+            f"🇹🇷 Turkcha: {tr}\n"
+            f"🇩🇪 Nemischa: {de}\n"
+            f"🇰🇷 Koreyscha: {ko}"
+
         )
 
         await update.message.reply_text(response)
