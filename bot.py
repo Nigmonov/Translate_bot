@@ -2,6 +2,7 @@ import os
 import logging
 from dotenv import load_dotenv
 from telegram import Update
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 from deep_translator import GoogleTranslator
 
@@ -15,8 +16,11 @@ logging.basicConfig(
     level=logging.INFO
 )
 
+keyboard = [[KeyboardButton("/start")]]
+reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
 # 🔹 /start komandasi
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE, reply_markup=None):
     user = update.effective_user.first_name
     await update.message.reply_text(
         f"👋 Assalomu alaykum, Botimizga xush kelibsiz, {user}!\n\n"
@@ -43,6 +47,7 @@ async def translate_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         de = GoogleTranslator(source='auto', target='de').translate(text)
         ko = GoogleTranslator(source='auto', target='ko').translate(text)
         response = (
+
             f"🌍 Yuborilgan so'rov {text}\n\n"
             f"🇺🇿 O‘zbekcha: {uzb}\n"
             f"🇬🇧 Inglizcha: {eng}\n"
@@ -53,11 +58,12 @@ async def translate_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         )
 
-        await update.message.reply_text(response)
+        await update.message.reply_text(response,reply_markup=reply_markup)
+
 
     except Exception as e:
         logging.error(f"Tarjima xatoligi: {e}")
-        await update.message.reply_text("❌ Tarjima qilishda xatolik yuz berdi, qayta urinib ko‘ring.")
+        await update.message.reply_text("❌ Tarjima qilishda xatolik yuz berdi, qayta urinib ko‘ring.", reply_markup=reply_markup)
 
 # 🔹 Asosiy funksiya
 def main():
