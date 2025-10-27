@@ -19,8 +19,8 @@ logging.basicConfig(
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user.first_name
     await update.message.reply_text(
-        f"👋 Assalomu alaykum, {user}!\n\n"
-        "Men ko‘p tilli tarjimon botman 🌍.\n"
+        f"👋 Assalomu alaykum, Botimizga xush kelibsiz, {user}!\n\n"
+        "Man ko‘p tilli tarjimon botman 🌍.\n"
         "Quyidagi tillar orasida tarjima qila olaman:\n"
         "🇺🇿 O‘zbek tili\n"
         "🇷🇺 Rus tili\n"
